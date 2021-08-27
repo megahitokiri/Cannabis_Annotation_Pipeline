@@ -7,10 +7,8 @@
 #SBATCH -e logs/PK_Step1-%j.err
 #SBATCH --account=rpp-rieseber
 
-########RUN EDTA on notchpeak.chpc or darjeeling for all assembly using singularity
-########Retrieve DATA TO START PIPELINE
-########e.g  singularity exec EDTA.sif EDTA.pl --genome PK_hap2.scaffold_8.fasta
-#######################################
+########Retrieve DATA TO START PIPELINE  FASTA FILE
+#####################################################
 mkdir logs
 mkdir EDTA_Files
 mkdir Minimap_Aligned
@@ -38,10 +36,11 @@ R --vanilla < Assembly_Chr_splitter.R --args -f $Reference -a $Assembly_hap
 mv *scaffold*.fasta Scaffold_split
 rm Assembly_Chr_splitter.R 
 
-cp Ref/Scaffold_split/*.* EDTA_Files
 ml unload r/4.1.0
-
 ml unload samtools
+cd ..
+cp Ref/Scaffold_split/*.* EDTA_Files
+
 echo "RUN EDTA IN ORDER TO CONTINUE THIS PIPELINE..."
 
 for i in {1..11}
