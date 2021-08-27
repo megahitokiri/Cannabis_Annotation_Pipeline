@@ -38,7 +38,13 @@ R --vanilla < Assembly_Chr_splitter.R --args -f $Reference -a $Assembly_hap
 mv *scaffold*.fasta Scaffold_split
 rm Assembly_Chr_splitter.R 
 
+cp Ref/Scaffold_split/*.* EDTA_Files
 ml unload r/4.1.0
 
 ml unload samtools
 echo "RUN EDTA IN ORDER TO CONTINUE THIS PIPELINE..."
+
+for i in {1..11}
+	do
+	sbatch EDTA_individual.sh $Assembly_hap.scaffold_${i}.fasta
+	done
