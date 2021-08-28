@@ -12,6 +12,8 @@ Genome_Fasta=$1
 
 cd EDTA_Files 
 
+eval "$(conda shell.bash hook)"
+
 conda activate EDTA
 
 	echo starting EDTA process on Chromosome: $Chr
